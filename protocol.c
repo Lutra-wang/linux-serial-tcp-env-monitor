@@ -60,7 +60,7 @@ int Parse_Data_Frame(const char *frame, float *tem,float *hum)
     if (frame == NULL || tem == NULL || hum == NULL)
         return -1;
 
-    if (sscanf(frame, "DATA,%f,.%f", tem,hum) == 2)
+    if (sscanf(frame, "DATA,%f,%f", tem,hum) == 2)
         return 0;
 
     return -1;
