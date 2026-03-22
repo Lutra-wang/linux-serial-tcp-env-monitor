@@ -20,6 +20,6 @@ int Frame_Reset(frame_parser *p);
 
 int Frame_Feed(frame_parser *p,char ch);
 
-int Parse_Data_Frame(const char *frame, int *value);
+int Parse_Data_Frame(const char *frame, float *tem,float *hum);
 
 #endif

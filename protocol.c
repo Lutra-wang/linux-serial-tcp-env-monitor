@@ -34,7 +34,7 @@ int Frame_Feed(frame_parser *p,char ch)
     {
         if(ch != '#')
         {
-            if(p->size >= FRAME_MAX_LEN-1) //±ß½çÎª¡®\0¡¯
+            if(p->size >= FRAME_MAX_LEN-1) //â€˜\0â€™
             {
                 Frame_Reset(p);
                 return -1;
@@ -55,12 +55,12 @@ int Frame_Feed(frame_parser *p,char ch)
     return -1;
 }
 
-int Parse_Data_Frame(const char *frame, int *value)
+int Parse_Data_Frame(const char *frame, float *tem,float *hum)
 {
-    if (frame == NULL || value == NULL)
+    if (frame == NULL || tem == NULL || hum == NULL)
         return -1;
 
-    if (sscanf(frame, "DATA,%d", value) == 1)
+    if (sscanf(frame, "DATA,%f,.%f", tem,hum) == 2)
         return 0;
 
     return -1;
