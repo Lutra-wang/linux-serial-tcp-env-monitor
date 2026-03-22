@@ -1,20 +1,11 @@
 CC = gcc
-CFLAGS = -Wall -Wextra -g
-TARGET = test
+CFLAGS = -Wall -Wextra -g -D_DEFAULT_SOURCE
+TARGET = serial_test
 
-SRCS = main.c protocol.c
-OBJS = $(SRCS:.c=.o)
+SRCS = main.c serial.c
 
-all: $(TARGET)
-
-$(TARGET): $(OBJS)
-	$(CC) $(CFLAGS) -o $(TARGET) $(OBJS)
-
-main.o: main.c protocol.h
-	$(CC) $(CFLAGS) -c main.c
-
-protocol.o: protocol.c protocol.h
-	$(CC) $(CFLAGS) -c protocol.c
+all:
+	$(CC) $(CFLAGS) -o $(TARGET) $(SRCS)
 
 clean:
-	rm -f $(OBJS) $(TARGET)
+	rm -f $(TARGET)

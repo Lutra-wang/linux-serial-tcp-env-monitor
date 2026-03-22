@@ -1,47 +1,35 @@
 #include <stdio.h>
-#include "protocol.h"
+#include "serial.h"
 
-void run_test(const char *stream)
-{
-    frame_parser parser;
-    Frame_Reset(&parser);
-
-    printf("测试输入流: %s\n", stream);
-
-    for (int i = 0; stream[i] != '\0'; i++)
-    {
-        int ret = Frame_Feed(&parser, stream[i]);
-
-        if (ret == 1)
-        {
-            int value = 0;
-            printf("收到完整帧: %s\n", parser.buf);
-
-            if (Parse_Data_Frame(parser.buf, &value) == 0)
-            {
-                printf("解析成功, value = %d\n", value);
-            }
-            else
-            {
-                printf("解析失败\n");
-            }
-        }
-        else if (ret == -1)
-        {
-            printf("组帧错误\n");
-        }
-    }
-
-    printf("测试结束\n\n");
-}
+#define DEV_PATH "/dev/ttyACM0"
 
 int main(void)
 {
-    run_test("$DATA,1#");
-    run_test("abc$DATA,2#");
-    run_test("$DATA,3#$DATA,4#");
-    run_test("xxx$DATA,5#yyy$DATA,6#");
-    run_test("$DATA,100#");
+    int fd = serial_open(DEV_PATH);
+    if (fd < 0)
+        return -1;
 
+    if (serial_config(fd) < 0)
+    {
+        serial_close(fd);
+        return -1;
+    }
+
+    printf("serial open success\n");
+
+    char buf[64];
+
+    while (1)
+    {
+        int n = serial_read_data(fd, buf, sizeof(buf) - 1);
+        if (n > 0)
+        {
+            buf[n] = '\0';
+            //printf("%d\n",n);
+            printf("%s", buf);
+        }
+    }
+
+    serial_close(fd);
     return 0;
 }
