@@ -25,19 +25,19 @@
 
 项目主要包含以下几个核心功能模块
 
-1 串口数据接收  
+1.串口数据接收  
 从设备文件 dev ttyACM0 读取 MCU 发送的数据
 
-2 协议解析  
+2.协议解析  
 基于状态机解析自定义数据帧，支持不定长数据流
 
-3 数据处理  
+3.数据处理  
 从数据帧中提取温度和湿度信息
 
-4 网络转发  
+4.网络转发  
 作为 TCP 服务端，将解析后的数据发送给客户端
 
-5 模块化设计  
+5.模块化设计  
 将串口 协议 网络 分模块实现，结构清晰
 
 ---
@@ -61,16 +61,17 @@ MCU 到 Linux 到 TCP 客户端
 
 ---
 
-## 五 项目结构
-./
-  ├── Makefile
-  ├── main.c
-  ├── protocol.c
-  ├── protocol.h
-  ├── serial.c
-  ├── serial.h
-  ├── tcp_server.c
-  └── tcp_server.h
+## 五 目录结构
+
+./  
+├── Makefile  
+├── main.c  
+├── protocol.c  
+├── protocol.h  
+├── serial.c  
+├── serial.h  
+├── tcp_server.c  
+└── tcp_server.h  
 
 ---
 
